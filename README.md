@@ -21,8 +21,8 @@ python ./main.py -v -i ./examples/test_with_ele.gpx ./examples/rsl
 3.  You can now browse and print the hike booklet by opening the file 'examples/rsl/index.html'
 
 ## Using NASA Earthdata Digital Elevation Model (DEM)
-1. In order to access the DEM server, register  at https://urs.earthdata.nasa.gov/profile
-2. Execute the script using the gpx route example lacking  elevation information (replace XXXXX:YYYYY by earthdata authentication username:password)
+1. The script can automatically retrieve missing elevation information from the DEM server. This feature requires prior registration at https://urs.earthdata.nasa.gov/profile
+2. Once you have register, execute the script using the gpx route example laking elevation information (replace XXXXX:YYYYY by earthdata authentication username:password)
 ```
 python ./main.py -v -a XXXXX:YYYYY -i ./examples/test_without_ele.gpx ./examples/rsl
 ```
