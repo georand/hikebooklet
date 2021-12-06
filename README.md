@@ -10,17 +10,25 @@ A python script generating a hiking booklets (HTML or PDF) from a planned GPX ro
 * **Map:** map generation using [OpenTopoMap](https://opentopomap.org) tiles with GPX track plot
 
 ## Quick Start
-1. Before generating a hike booklet, an Earthdata (NASA) account must be created in order to access the DEM server. Register at https://urs.earthdata.nasa.gov/profile
-2.  Modify if necessary, the settings in config.py; especially:
-    * FLAT_SPEED (default: 4.5km/h)
-    * CACHE_PATH (default:  '~/.cache/hikebooklet').
-3. Execute the script using the gpx route example (replace XXXXX:YYYY by earthdata authentication username:password)
+1. Install the python dependencies
 ```
-python ./main.py -v -a XXXXX:YYYYY -i ./examples/test.gpx ./examples/rsl
+pip install numpy pillow requests
 ```
-4.  You can now browse and print the hike booklet by opening the file 'examples/rsl/index.html'
+2. Execute the script using the provided gpx route example (a gpx file including elevation information for each waypoint).
+```
+python ./main.py -v -i ./examples/test_with_ele.gpx ./examples/rsl
+```
+3.  You can now browse and print the hike booklet by opening the file 'examples/rsl/index.html'
 
-## Usage
+## Using NASA Earthdata Digital Elevation Model (DEM)
+1. In order to access the DEM server, register  at https://urs.earthdata.nasa.gov/profile
+2. Execute the script using the gpx route example lacking  elevation information (replace XXXXX:YYYYY by earthdata authentication username:password)
+```
+python ./main.py -v -a XXXXX:YYYYY -i ./examples/test_without_ele.gpx ./examples/rsl
+```
+3. The booklet is created  along with a new gpx file (rsl.gpx) including elevation and timing information
+
+## Options
 ```
 python ./main.py [-h] [-v] [-s speed] [-a username:password] -i input_gpx_file output_dir
 optional arguments:
@@ -28,7 +36,7 @@ optional arguments:
     -v,                      print information messages to stderr (-vv for debugging)
     -s speed,                flat speed (default to 4,5km/h)
     -a username:password,    authentication information for the DEM server
-    -i input_gpx_file,       input gpx file
+    -i input_gpx_file,        input gpx file
 positional arguments:
     output_dir               directory path where resulting data will be stored
 ```
