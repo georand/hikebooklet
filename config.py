@@ -21,7 +21,8 @@ URL_MAP=r'https://tile.opentopomap.org/{}/{}/{}.png'
 #URL_MAP=r'https://tile.openstreetmap.org/{}/{}/{}.png'
 
 # url for Digital Elvation Model download (see below for credentials)
-URL_DEM = r'http://e4ftl01.cr.usgs.gov/MEASURES/SRTMGL1.003/2000.02.11/{}'
+URL_DEM = r'https://e4ftl01.cr.usgs.gov/MEASURES/SRTMGL1.003/2000.02.11/{}'
+URL_DEM_AUTH = 'urs.earthdata.nasa.gov'
 
 # tile name format for DEM files
 DEM_TILE_NAME = r'{}.SRTMGL1.hgt.zip'
