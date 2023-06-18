@@ -298,7 +298,6 @@ class GPX():
         nr[1] = [nr[1,0]+1, 0]
         nr[1,1] = nr[0,1]
         nr[0,1] = 0
-        print(nr)
         draw.rectangle([tuple(k) for k in nr], fill=colors[1])
     del draw
 

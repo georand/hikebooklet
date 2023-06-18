@@ -6,7 +6,7 @@
  date: 2021
 """
 
-import io,zipfile,struct,logging
+import sys,io,zipfile,struct,logging
 
 import requests
 import numpy as np
@@ -15,14 +15,15 @@ from PIL import Image, ImageDraw, ImageColor
 from config import *
 
 logger=logging.getLogger(__name__)
+logging.basicConfig(level = logging.WARNING,
+                    format='%(message)s', stream=sys.stderr)
 
 class SessionWithHeaderRedirection(requests.Session):
   '''
-  overriding requests.Session.rebuild_auth to mantain headers when redirected
+  overriding requests.Session.rebuild_auth to maintain headers when redirected
   to or from the NASA auth host
   code from https://wiki.earthdata.nasa.gov/display/EL/How+To+Access+Data+With+Python
   '''
-  AUTH_HOST = 'urs.earthdata.nasa.gov'
   def __init__(self, auth):
     super().__init__()
     self.auth = auth
@@ -34,8 +35,8 @@ class SessionWithHeaderRedirection(requests.Session):
       original_parsed = requests.utils.urlparse(response.request.url)
       redirect_parsed = requests.utils.urlparse(url)
       if (original_parsed.hostname != redirect_parsed.hostname) and \
-         redirect_parsed.hostname != self.AUTH_HOST and \
-           original_parsed.hostname != self.AUTH_HOST:
+         redirect_parsed.hostname != URL_DEM_AUTH and \
+           original_parsed.hostname != URL_DEM_AUTH:
         del headers['Authorization']
     return
 
@@ -91,7 +92,6 @@ class DEM ():
           tilePath = self.cache.saveData(filename, r.content)
       except requests.exceptions.HTTPError as e:
         logger.error(f'unable to download DEM tile {filename} from server (HTTP error: {e.response.status_code})')
-
     return tilePath
 
   def getElevation(self, pointList):
